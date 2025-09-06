@@ -1,0 +1,53 @@
+import java.util.*;
+public class Calculator {
+    
+    public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+                
+        String choice;
+        do{
+            System.out.print("Type d for double/ i for integer/ exit to exit: ");
+            choice = console.nextLine();
+            choice = choice.toLowerCase();
+            
+            if(choice.equals("d")){
+                System.out.print("Enter a decimal number: ");
+                double a = console.nextDouble();
+                System.out.print("Enter the operator: ");
+                console.nextLine();
+                        
+                String o = console.nextLine();
+                System.out.print("Enter another decimal number: ");
+                double b = console.nextDouble();
+                
+                System.out.println(doubleCalc(o, a, b));
+                
+            }else if (choice.equals("i")){
+                System.out.print("Enter an integer: ");
+                int a = console.nextInt();
+                System.out.print("Enter the operator: ");
+                console.nextLine();
+                String o = console.nextLine();
+                System.out.print("Enter an integer: ");
+                int b = console.nextInt();
+                
+                System.out.println(integerCalc(a, b, o));
+            }else System.out.println("Thanks for partcipating.");
+            console.nextLine();
+        } while(!choice.equals("exit"));
+    }
+    
+    public static int integerCalc(int a, int b, String opr){
+        if (opr.equals("+")) return a + b;
+        else if(opr.equals("-")) return a - b;
+        else if(opr.equals("*")) return a * b;
+        else return a / b;
+    }
+    
+    public static double doubleCalc(String opr, double a, double b){
+        if (opr.equals("+")) return a + b;
+        else if(opr.equals("-")) return a - b;
+        else if(opr.equals("*")) return a * b;
+        else return a / b;
+    }
+}
