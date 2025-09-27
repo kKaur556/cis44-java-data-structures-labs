@@ -1,0 +1,15 @@
+class EquilateralTriangle extends IsoscelesTriangle {
+    public EquilateralTriangle(double side){
+        super(side, side);
+    }
+    
+    @Override
+    public double area(){
+        return (Math.sqrt(3)/4) * side1 * side1;
+    }
+    
+    @Override
+    public double perimeter(){
+        return 3 * side1;
+    }
+}
