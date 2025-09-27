@@ -1,0 +1,25 @@
+class Triangle implements Polygon{
+    //atttributes
+    protected double side1, side2, side3;
+    
+    //constructor
+    public Triangle(double s1, double s2, double s3){
+        this.side1 = s1;
+        this.side2 = s2;
+        this.side3 = s3;
+    }
+    
+    //overriden methods for area and perimeter
+    @Override
+    public double perimeter(){
+        return side1 + side2 + side3;
+    }
+    
+    @Override
+    public double area(){
+        double semiP = (this.perimeter()/2);
+        return Math.sqrt(semiP * (semiP - side1) * (semiP - side2) * (semiP - side3)) ;
+    }
+    
+   
+}
