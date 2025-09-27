@@ -1,0 +1,19 @@
+class Quadrilateral implements Polygon{
+    //All quadrilaterals have 4 sides
+    //square has all sides same
+    //rectangle has 2 same length sides and 2 same width sides
+    //Assuming the quadrilateral is either a square or a rectangle for this class.
+    
+    //overriden methods for area and perimeter
+    @Override
+    public double perimeter(){
+        //subclass overrides
+        return 0;
+    }
+    
+    @Override
+    public double area(){
+        //subclass overrides
+        return 0;
+    }
+}
