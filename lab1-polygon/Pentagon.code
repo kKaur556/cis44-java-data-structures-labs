@@ -1,0 +1,17 @@
+class Pentagon implements Polygon{
+    protected double s1;
+    public Pentagon(double side){
+        s1 = side;
+    }
+    
+    @Override
+    public double perimeter(){
+        return 5 * s1;
+    }
+    
+    @Override
+    public double area(){
+        return ((1/4) * (Math.sqrt(5 * (5+2*Math.sqrt(5))))) * Math.pow(s1, 2);
+    }
+    
+}
