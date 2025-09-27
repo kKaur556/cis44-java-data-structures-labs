@@ -1,0 +1,16 @@
+public class Square extends Rectangle{
+    public Square(double s1){
+        super(s1,s1);
+    }
+    
+     //overriden methods for area and perimeter
+    @Override
+    public double perimeter(){
+        return 4 * length;
+    }
+    
+    @Override
+    public double area(){
+        return length * length;
+    }
+}
