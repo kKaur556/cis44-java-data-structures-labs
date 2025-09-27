@@ -1,0 +1,11 @@
+public class IsoscelesTriangle extends Triangle{
+    //isoceles triangle has 2 sides equal and 1 base
+    public IsoscelesTriangle(double side, double base){
+        super(side, side, base);
+    }
+    
+    @Override
+    public double perimeter(){
+        return (2* side1) + side3;
+    }
+}
