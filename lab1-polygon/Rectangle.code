@@ -1,0 +1,19 @@
+public class Rectangle extends Quadrilateral{
+    protected double length, width;
+    
+    public Rectangle(double s1, double s2){
+        length = s1;
+        width = s2;
+    }
+    
+     //overriden methods for area and perimeter
+    @Override
+    public double perimeter(){
+        return 2 * (length + width);
+    }
+    
+    @Override
+    public double area(){
+        return length * width;
+    }
+}
