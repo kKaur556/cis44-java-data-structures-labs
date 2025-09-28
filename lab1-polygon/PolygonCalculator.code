@@ -1,200 +1,219 @@
 import java.util.*;
 public class PolygonCalculator {
+    
 
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         int userInput;
         do{
-            System.out.print("Enter the number of sides your polygon should have (3-6 or 8)");
-            System.out.println(" or enter 0 to exit.");
+            System.out.println("Enter the number of sides your polygon should have (3-6 or 8)");
+            System.out.println("or enter 0 to exit.");
             userInput = console.nextInt();
+            
+            //breaking the loop if user enters 0
+            if (userInput ==0) break;
             
             //validating user input
             while((userInput < 0) || (userInput > 0 && userInput < 3) || (userInput > 8) || (userInput == 7)){
-                System.out.print("You entered a number out of range.");
-                System.out.print("Enter the number of sides your polygon should have (3-6 or 8)");
-                System.out.println(" or enter 0 to exit.");
+                System.out.println("You entered a number out of range. ");
+                System.out.println("Enter the number of sides your polygon should have (3-6 or 8)");
+                System.out.println("or enter 0 to exit.");
                 userInput = console.nextInt();
             }
             
             //if statements to call the appropriate method for each polygon
-            if(userInput == 3){
-                triangle();
-            }else if(userInput == 4){
-                quadrilateral();
-            }else if (userInput == 5){
-                pentagon();
-            }else if (userInput == 6){
-                hexagon();
-            }else{
-                octagon();
+            if(userInput == 3)
+           {
+                double s1;
+                double s2;
+                double s3;
+        
+                System.out.println("Enter 3 positive numbers followed by space for the side of triangle: ");
+                s1 = console.nextInt();
+                s2 = console.nextInt();
+                s3 = console.nextInt();
+        
+                //validating inputs
+                while(s1<0 || s2 < 0 || s3 < 0)
+                {
+                    System.out.println("You entered a negative number for at least one of the side.");
+                    System.out.println("Enter 3 positive numbers followed by space for the side of triangle: ");
+                    s1 = console.nextInt();
+                    s2 = console.nextInt();
+                    s3 = console.nextInt();
+                }
+        
+                if(s1== s2 && s2 == s3)
+                {
+                    //all sides are equal, instance is an equilateral triangle
+                    EquilateralTriangle triangle = new EquilateralTriangle(s1);
+                    double perimeter = triangle.perimeter();
+                    double area = triangle.area();
+                    
+                    System.out.print("The perimeter of the equilateral triangle is ");
+                    System.out.println(String.format("%.2f", perimeter)+ " units");
+                    System.out.print("The area of the equilateral triangle is ");
+                    System.out.println(String.format("%.2f", area) + " unit^2");
+                }
+                else if (s1 == s2|| s1 == s3 || s2 == s3)
+                {
+                    //two sides equal, instance is an isosceles triangle
+                    IsoscelesTriangle triangle; 
+                    if (s1 == s2) 
+                    {
+                        triangle = new IsoscelesTriangle(s1, s3);
+                    }
+                    else if (s1 == s3) 
+                    {
+                        triangle = new IsoscelesTriangle(s1, s2);
+                    } 
+                    else 
+                    { // s2 == s3
+                        triangle = new IsoscelesTriangle(s2, s1);
+                    }
+                    
+                    double perimeter = triangle.perimeter();
+                    double area = triangle.area();
+                    
+                    System.out.print("The perimeter of the isosceles triangle is ");
+                    System.out.println(String.format("%.2f", perimeter) + " units");
+                    System.out.print("The area of the isosceles triangle is ");
+                    System.out.println(String.format("%.2f", area) + " unit^2");
+                }
+                else
+                {
+                    //no sides are equal, instance is a regular triangle
+                    Triangle triangle = new Triangle(s1,s2,s3);
+                    double perimeter = triangle.perimeter();
+                    double area = triangle.area();
+                    
+                    System.out.print("The perimeter of the triangle is ");
+                    System.out.println(String.format("%.2f", perimeter) + " units");
+                    System.out.print("The area of the triangle is ");
+                    System.out.println(String.format("%.2f", area) + " unit^2");
+                }
             }
-        }while(userInput != 0);
-    }
-    
-    //calling triangle is user selects 3
-    public static void triangle(){
-        Scanner console = new Scanner(System.in);
-        double s1;
-        double s2;
-        double s3;
-        
-        System.out.println("Enter 3 positive numbers followed by space for the side of triangle: ");
-        s1 = console.nextInt();
-        s2 = console.nextInt();
-        s3 = console.nextInt();
-        
-        //validating inputs
-        while(s1<0 || s2 < 0 || s3 < 0){
-            System.out.println("You entered a negative number for at least one of the side.");
-            System.out.println("Enter 3 positive numbers followed by space for the side of triangle: ");
-            s1 = console.nextInt();
-            s2 = console.nextInt();
-            s3 = console.nextInt();
-        }
-        
-        if(s1== s2 && s2 == s3){
-            //all sides are equal, instance is an equilateral triangle
-            EquilateralTriangle triangle = new EquilateralTriangle(s1);
-            System.out.print("The perimeter of the equilateral triangle is ");
-            System.out.println(triangle.perimeter() + " units");
-            System.out.print("The area of the equilateral triangle is ");
-            System.out.println(triangle.area() + " unit^2");
-        }else if (s1 == s2){
-            //two sides, s1 and s2 are equal and s3 is different, instance is an isosceles triangle
-            IsoscelesTriangle triangle = new IsoscelesTriangle(s1,s3);
-            System.out.print("The perimeter of the isosceles triangle is ");
-            System.out.println(triangle.perimeter() + " units");
-            System.out.print("The area of the isosceles triangle is ");
-            System.out.println(triangle.area() + " unit^2");
-        }else if (s2 == s3){
-            //two sides, s3 and s2 are equal and s1 is different, instance is an isosceles triangle
-            IsoscelesTriangle triangle = new IsoscelesTriangle(s1,s2);
-            System.out.print("The perimeter of the isoceles triangle is ");
-            System.out.println(triangle.perimeter() + " units");
-            System.out.print("The area of the isosceles triangle is ");
-            System.out.println(triangle.area() + " unit^2");
-        }else if (s1 == s3){
-            //two sides, s1 and s3 are equal and s2 is different, instance is an isosceles triangle
-            IsoscelesTriangle triangle = new IsoscelesTriangle(s1,s2);
-            System.out.print("The perimeter of the isoceles triangle is ");
-            System.out.println(triangle.perimeter() + " units");
-            System.out.print("The area of the isosceles triangle is ");
-            System.out.println(triangle.area() + " unit^2");
-        }else{
-            //no sides are equal, instance is a regular triangle
-            Triangle triangle = new Triangle(s1,s2,s3);
-            System.out.print("The perimeter of the triangle is ");
-            System.out.println(triangle.perimeter() + " units");
-            System.out.print("The area of the triangle is ");
-            System.out.println(triangle.area() + " unit^2");
-        }
-        
-             
-    }
-    
-    //calling quadrilateral if user selects 4
-    public static void quadrilateral(){
-        Scanner console = new Scanner(System.in);
-        double s1;
-        double s2;
+            
+            else if(userInput == 4)
+            {
+                double s1;
+                double s2;
        
-        System.out.println("Enter 2 positive numbers followed by space for the length and width of the quadrilateral: ");
-        s1 = console.nextInt();
-        s2 = console.nextInt();
+                System.out.println("Enter 2 positive numbers followed by space for the length and width of the quadrilateral: ");
+                s1 = console.nextInt();
+                s2 = console.nextInt();
         
-        //validating inputs
-        while(s1 < 0 || s2 < 0){
-            System.out.println("You entered a negative number for at least one.");
-            System.out.println("Enter 2 positive numbers followed by space for the length and width of the quadrilateral: ");
-            s1 = console.nextInt();
-            s2 = console.nextInt();
-        }
+                //validating inputs
+                while(s1 < 0 || s2 < 0)
+                {
+                    System.out.println("You entered a negative number for at least one.");
+                    System.out.println("Enter 2 positive numbers followed by space for the length and width of the quadrilateral: ");
+                    s1 = console.nextInt();
+                    s2 = console.nextInt();
+                }
         
-        if(s1 == s2){
-            Square square = new Square(s1);
-            System.out.print("The perimeter of the square is ");
-            System.out.println(square.perimeter() + " units");
-            System.out.print("The area of the square is ");
-            System.out.println(square.area() + " unit^2");
-        }else{
-            Rectangle rectangle = new Rectangle(s1,s2);
-            System.out.print("The perimeter of the rectangle is ");
-            System.out.println(rectangle.perimeter() + " units");
-            System.out.print("The area of the rectangle is ");
-            System.out.println(rectangle.area() + " unit^2");
-        }
-    }
-    
-    //calling pentagon if user selects 5
-    public static void pentagon(){
-        //Assuming all sides equal for simplicity
-        Scanner console = new Scanner(System.in);
-        double s1;
+                if(s1 == s2)
+                {
+                    Square square = new Square(s1);
+                    double perimeter = square.perimeter();
+                    double area = square.area();
+                    
+                    System.out.print("The perimeter of the square is ");
+                    System.out.println(String.format("%.2f", perimeter) + " units");
+                    System.out.print("The area of the square is ");
+                    System.out.println(String.format("%.2f", area) + " unit^2");
+                }
+                else
+                {
+                    Rectangle rectangle = new Rectangle(s1,s2);
+                    double perimeter = rectangle.perimeter();
+                    double area = rectangle.area();
+                    
+                    System.out.print("The perimeter of the rectangle is ");
+                    System.out.println(String.format("%.2f", perimeter) + " units");
+                    System.out.print("The area of the rectangle is ");
+                    System.out.println(String.format("%.2f", area) + " unit^2");
+                }
+            }
+            
+            else if (userInput == 5)
+            {
+                //Assuming all sides equal for simplicity
+                double s1;
         
-        System.out.println("Enter a positive number for the side of the pentagon (assuming all sides equal): ");
-        s1 = console.nextInt();
+                System.out.println("Enter a positive number for the side of the pentagon (assuming all sides equal): ");
+                s1 = console.nextInt();
         
-        //validating input
-        while(s1 < 0){
-            System.out.println("You entered a negative number.");
-            System.out.println(" Enter a positive number for the side of the pentagon (assuming all sides equal): ");
-            s1 = console.nextInt();
-        }
+                //validating input
+                while(s1 < 0)
+                {
+                    System.out.println("You entered a negative number.");
+                    System.out.println(" Enter a positive number for the side of the pentagon (assuming all sides equal): ");
+                    s1 = console.nextInt();
+                }
         
-        Pentagon pentagon = new Pentagon(s1);
-        System.out.print("The perimeter of the hexagon is ");
-        System.out.println(pentagon.perimeter() + " units");
-        System.out.print("The area of the hexagon is ");
-        System.out.println(pentagon.area() + " unit^2");
+                Pentagon pentagon = new Pentagon(s1);
+                double perimeter = pentagon.perimeter();
+                double area = pentagon.area();
+                System.out.print("The perimeter of the pentagon is ");
+                System.out.println(String.format("%.2f", perimeter) + " units");
+                System.out.print("The area of the pentagon is ");
+                System.out.println(String.format("%.2f", area) + " unit^2");
+            }
+            
+            else if (userInput == 6)
+            {
+                //Assuming all sides equal for simplicity
+                double s1;
         
-    }
-    
-    //calling hexagon if user selects 6
-    public static void hexagon(){
-        //Assuming all sides equal for simplicity
-        Scanner console = new Scanner(System.in);
-        double s1;
+                System.out.println("Enter a positive number for the side of the hexagon (assuming all sides equal): ");
+                s1 = console.nextInt();
         
-        System.out.println("Enter a positive number for the side of the hexagon (assuming all sides equal): ");
-        s1 = console.nextInt();
+                //validating input
+                while(s1 < 0)
+                {
+                    System.out.println("You entered a negative number.");
+                    System.out.println(" Enter a positive number for the side of the hexagon (assuming all sides equal): ");
+                    s1 = console.nextInt();
+                }
         
-        //validating input
-        while(s1 < 0){
-            System.out.println("You entered a negative number.");
-            System.out.println(" Enter a positive number for the side of the hexagon (assuming all sides equal): ");
-            s1 = console.nextInt();
-        }
+                Hexagon hexagon = new Hexagon(s1);
+                double perimeter = hexagon.perimeter();
+                double area = hexagon.area();
+                
+                System.out.print("The perimeter of the hexagon is ");
+                System.out.println(String.format("%.2f", perimeter) + " units");
+                System.out.print("The area of the hexagon is ");
+                System.out.println(String.format("%.2f", area) + " unit^2");
+            }
+            
+            else
+            {
+                //Assuming all sides equal for simplicity
+                double s1;
         
-        Hexagon hexagon = new Hexagon(s1);
-        System.out.print("The perimeter of the hexagon is ");
-        System.out.println(hexagon.perimeter() + " units");
-        System.out.print("The area of the hexagon is ");
-        System.out.println(hexagon.area() + " unit^2");
-    }
-    
-    //calling octagon is user selects 8
-    public static void octagon(){
-        //Assuming all sides equal for simplicity
-        //Assuming all sides equal for simplicity
-        Scanner console = new Scanner(System.in);
-        double s1;
+                System.out.println("Enter a positive number for the side of the octagon (assuming all sides equal): ");
+                s1 = console.nextInt();
         
-        System.out.println("Enter a positive number for the side of the octagon (assuming all sides equal): ");
-        s1 = console.nextInt();
+                //validating input
+                while(s1 < 0)
+                {
+                    System.out.println("You entered a negative number.");
+                    System.out.println(" Enter a positive number for the side of the octagon (assuming all sides equal): ");
+                    s1 = console.nextInt();
+                }
         
-        //validating input
-        while(s1 < 0){
-            System.out.println("You entered a negative number.");
-            System.out.println(" Enter a positive number for the side of the octagon (assuming all sides equal): ");
-            s1 = console.nextInt();
-        }
-        
-        Octagon octagon = new Octagon(s1);
-        System.out.print("The perimeter of the octagon is ");
-        System.out.println(octagon.perimeter() + " units");
-        System.out.print("The area of the octagon is ");
-        System.out.println(octagon.area() + " unit^2");
-        
+                Octagon octagon = new Octagon(s1);
+                double perimeter = octagon.perimeter();
+                double area = octagon.area();
+                
+                System.out.print("The perimeter of the octagon is ");
+                System.out.println(String.format("%.2f", perimeter) + " units");
+                System.out.print("The area of the octagon is ");
+                System.out.println(String.format("%.2f", area) + " unit^2");
+            }
+            
+            System.out.println();
+        }while(userInput != 0);
     }
 }
