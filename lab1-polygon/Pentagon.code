@@ -11,7 +11,7 @@ class Pentagon implements Polygon{
     
     @Override
     public double area(){
-        return ((1/4) * (Math.sqrt(5 * (5+2*Math.sqrt(5))))) * Math.pow(s1, 2);
+        return (5 * Math.pow(s1, 2)) / (4 * Math.tan(0.628319));
     }
     
 }
