@@ -1,0 +1,17 @@
+import java.util.*;
+public abstract class Animal {
+    protected Random random = new Random();
+    public abstract String toString();
+
+    // The move() method now handles the animal's movement and interactions.
+    // It returns the new animal (if any) to be placed in the target cell.
+    public abstract Animal move(Animal targetAnimal);
+    
+    //shared
+    public int getRandomDirection() {
+        //animal can move 1(to the left)
+        //animal can move -1(to the left)
+        return random.nextBoolean() ? 1 : -1;
+    }
+
+}
