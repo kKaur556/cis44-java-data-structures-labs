@@ -1,0 +1,108 @@
+import java.util.Random;
+public class Ecosystem {
+    private Animal[] river;
+    private Random random;
+    private int riverSize;
+    
+    public Ecosystem(int rS){
+        riverSize = rS;
+        this.river = new Animal[riverSize];
+        this.random = new Random();
+        populateRiver(riverSize);
+    }
+    
+    //populating river with a function- private function
+    private void populateRiver(int rS)
+    {
+        for (int i = 0; i < rS; i++) {
+            int r = random.nextInt(3); // 0, 1, or 2
+            if (r == 0) {
+                river[i] = new Fish();
+            } else if (r == 1) {
+                river[i] = new Bear();
+            } else {
+                river[i] = null;
+            }
+        }
+    }//populateRiver ends
+    
+    //runStep method- handles the movement and interaction
+    public void runStep()
+    {
+        Animal[] newRiver = new Animal[riverSize];//new river, will replace old
+        
+        //hasMoved checks if animal has moved; all false in the beginning
+        boolean[] hasMoved = new boolean[riverSize];
+        
+        for(int i = 0; i < riverSize; i++)
+        {
+            if (river[i] != null && !hasMoved[i])
+            {
+                Animal currentAnimal = river[i];//current animal is the animal at the current index
+                int direction = currentAnimal.getRandomDirection();//returns 1 or -1
+                int newIndex = (i + direction + riverSize) % riverSize;//makes sure index error is not out of bound
+
+                Animal targetAnimal = river[newIndex];//target animal is the animal at new index
+                Animal interactionResult = currentAnimal.move(targetAnimal);
+                
+                if (interactionResult != null) 
+                {
+                    if (targetAnimal instanceof Bear && currentAnimal instanceof Fish) {
+                        // Fish is eaten, so the Bear moves into the new position
+                        newRiver[newIndex] = targetAnimal;
+                        hasMoved[newIndex] = true;
+                    } else if (currentAnimal instanceof Bear && targetAnimal instanceof Bear) {
+                        // Two bears meet, one stays, and the new one is returned.
+                        newRiver[i] = currentAnimal;
+                        newRiver[newIndex] = interactionResult;
+                        hasMoved[i] = true;
+                        hasMoved[newIndex] = true;
+                    } else if (currentAnimal instanceof Fish && targetAnimal instanceof Fish) {
+                        // Two fish meet, one stays, and the new one is returned.
+                        newRiver[i] = currentAnimal;
+                        newRiver[newIndex] = interactionResult;
+                        hasMoved[i] = true;
+                        hasMoved[newIndex] = true;
+                    } else {
+                        // Animal moves into an empty space or eats.
+                        newRiver[newIndex] = interactionResult;
+                        hasMoved[newIndex] = true;
+                    }
+                }
+            }
+        }//for loop ends
+        
+        // Filling in remaining animals that didn't move this turn
+        for (int i = 0; i < riverSize; i++) {
+            if (newRiver[i] == null && river[i] != null && !hasMoved[i]) {
+                newRiver[i] = river[i];
+            }
+        }
+
+        river = newRiver;//river's values are replaced by newRiver's values
+    }//runStep() ends
+    
+    
+    //visualize() prints the current animal state, B:bear; F:fish; and '-': null
+    public void visualize() {
+        for (Animal animal : river) {
+            System.out.print(animal == null ? "-" : animal.toString());
+            System.out.print(" ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        //creating a new ecosystem
+        Ecosystem eco = new Ecosystem(20);
+        System.out.print("Initial state: ");
+        eco.visualize();
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Step " + (i + 1) + ": ");
+            eco.runStep();
+            eco.visualize();
+        }
+    }
+    
+}//class Ecosystem ends
