@@ -1,0 +1,20 @@
+class Fish extends Animal {
+    @Override
+    public String toString() {
+        return "F";
+    }
+
+    @Override
+    public Animal move(Animal targetAnimal) {
+        if (targetAnimal instanceof Fish) {
+            // Two fish meet, a new one is born.
+            return new Fish();
+        } else if (targetAnimal instanceof Bear) {
+            // Fish is eaten. The fish object is discarded by returning null.
+            return null;
+        } else { // targetAnimal is null (empty cell)
+            // Fish moves into an empty cell.
+            return this;
+        }
+    }
+}
