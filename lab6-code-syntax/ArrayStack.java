@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 public class ArrayStack<E> implements Stack<E> {
     private E[] elements;
     private int top;
@@ -18,7 +19,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E pop()
     {
-        if(isEmpty()) throw new java.util.EmptyStackException();
+        if(isEmpty()) throw new EmptyStackException();
         E item = elements[top];
         elements[top--] = null;
         return item;
@@ -27,7 +28,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E peek()
     {
-        if(isEmpty()) throw new java.util.EmptyStackException();
+        if(isEmpty()) throw new EmptyStackException();
         return elements[top];
     }
     
