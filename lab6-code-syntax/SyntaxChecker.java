@@ -22,15 +22,15 @@ public class SyntaxChecker {
                 char last = (char) buffer.pop();
                 
                 //mismatch check
-                if((character == ')' && last == '(')||
-                    (character == '}' && last == '{')||
-                    (character == ']' && last == '['))
+                if((character == ')' && last != '(')||
+                    (character == '}' && last != '{')||
+                    (character == ']' && last != '['))
                 {
                     return false;
                 }
             }
         }
-        return buffer.isEmpty(); // Placeholder
+        return buffer.isEmpty();
     }
 
     public static void main(String[] args) {
@@ -47,3 +47,4 @@ public class SyntaxChecker {
         System.out.println("Line 5 is balanced: " + isBalanced(line5));
     }
 }
+
