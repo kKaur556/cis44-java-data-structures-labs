@@ -24,7 +24,7 @@ public class SubarrayTester {
             startTime = System.nanoTime();
             endTime = System.nanoTime();
             long durationK = endTime - startTime;
-            int maxSumK = MaxSubarraySolver.bruteForceMaxSum(test);
+            int maxSumK = MaxSubarraySolver.kadanesAlgorithmMaxSum(test);
             System.out.printf(" Kaden's (Sum: %d): %,d ns%n", maxSumK, durationK);
         }
     }
