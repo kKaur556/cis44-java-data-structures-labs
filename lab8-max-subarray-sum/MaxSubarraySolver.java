@@ -23,7 +23,7 @@ public class MaxSubarraySolver {
             }
         }
         
-        return maxSum; // Placeholder
+        return maxSum; 
     }
 
     /**
@@ -44,6 +44,6 @@ public class MaxSubarraySolver {
             
             if(maxEnd > max) max = maxEnd;
         }
-        return max; // Placeholder
+        return max; 
     }
 }
