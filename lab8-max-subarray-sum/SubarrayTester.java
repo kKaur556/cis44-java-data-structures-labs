@@ -20,12 +20,12 @@ public class SubarrayTester {
             int maxSumBF = MaxSubarraySolver.bruteForceMaxSum(test);
             System.out.printf(" Brute Force (Sum: %d): %,d ns%n", maxSumBF, durationBF);
             
-            //time kaden's algorithm
+            //time kadane's algorithm
             startTime = System.nanoTime();
             endTime = System.nanoTime();
             long durationK = endTime - startTime;
             int maxSumK = MaxSubarraySolver.kadanesAlgorithmMaxSum(test);
-            System.out.printf(" Kaden's (Sum: %d): %,d ns%n", maxSumK, durationK);
+            System.out.printf(" Kadane's Algorithm (Sum: %d): %,d ns%n", maxSumK, durationK);
         }
     }
 
